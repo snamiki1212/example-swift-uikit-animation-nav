@@ -48,6 +48,8 @@ class ViewController: UIViewController {
         
         heightConstraint.constant = 200
         UIView.animate(withDuration: 1) {
+            self.navRightButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
+            
             self.view.layoutIfNeeded()
         }
     }
