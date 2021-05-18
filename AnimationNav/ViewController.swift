@@ -9,10 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var isOpened = false
     var nav = UINavigationBar()
     var navRightButton = UIButton()
     
-    lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: 88)
+    let regularNavbarHeight = 88
+    lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +49,19 @@ class ViewController: UIViewController {
     @objc func onPressAddButton(){
         print("onPressAddButton")
         
-        heightConstraint.constant = 200
+        
+        
         UIView.animate(withDuration: 1) {
-            self.navRightButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
+            if self.isOpened {
+                self.heightConstraint.constant = CGFloat(self.regularNavbarHeight)
+                self.navRightButton.transform = CGAffineTransform(rotationAngle: 0)
+            } else {
+                self.heightConstraint.constant = 200
+                self.navRightButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
+            }
             
+            
+            self.isOpened.toggle()
             self.view.layoutIfNeeded()
         }
     }
