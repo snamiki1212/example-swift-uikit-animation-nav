@@ -48,10 +48,7 @@ class ViewController: UIViewController {
     
     @objc func onPressAddButton(){
         print("onPressAddButton")
-        
-        
-        
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut) {
             if self.isOpened {
                 self.heightConstraint.constant = CGFloat(self.regularNavbarHeight)
                 self.navRightButton.transform = CGAffineTransform(rotationAngle: 0)
@@ -59,7 +56,6 @@ class ViewController: UIViewController {
                 self.heightConstraint.constant = 200
                 self.navRightButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
             }
-            
             
             self.isOpened.toggle()
             self.view.layoutIfNeeded()
