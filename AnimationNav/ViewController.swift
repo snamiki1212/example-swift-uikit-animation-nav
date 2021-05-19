@@ -12,9 +12,12 @@ class ViewController: UIViewController {
     var isOpened = false
     var nav = UINavigationBar()
     var navRightButton = UIButton()
+    var navHeader = UILabel()
     
     let regularNavbarHeight = 88
     lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
+    
+    var snackIcons = UIStackView()
     
     
     override func viewDidLoad() {
@@ -37,11 +40,38 @@ class ViewController: UIViewController {
         navRightButton.translatesAutoresizingMaskIntoConstraints = false
         navRightButton.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
         navRightButton.trailingAnchor.constraint(equalTo: nav.trailingAnchor).isActive = true
-
         navRightButton.addTarget(self, action: #selector(onPressAddButton), for: .touchUpInside)
         
-        view.backgroundColor = .red
+        // nav header
+        navHeader = UILabel()
+        nav.addSubview(navHeader)
+        navHeader.text = "Snack"
+        navHeader.translatesAutoresizingMaskIntoConstraints = false
+        navHeader.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -8).isActive = true
+        navHeader.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
         
+        // stack
+        snackIcons = {
+            let oreos = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+            oreos.image = UIImage(named: "oreos")!
+            var label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            label.text = "test"
+            label.backgroundColor = .blue
+            var stack = UIStackView(arrangedSubviews: [oreos, label])
+            stack.isHidden = true
+            return stack
+        }()
+        nav.addSubview(snackIcons)
+        snackIcons.translatesAutoresizingMaskIntoConstraints = false
+        snackIcons.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
+        snackIcons.leadingAnchor.constraint(equalTo: nav.leadingAnchor).isActive = true
+        snackIcons.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        snackIcons.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        snackIcons.backgroundColor = .green
+        
+        
+        //
+        view.backgroundColor = .systemTeal
         print("RENDER")
     }
     
@@ -57,9 +87,15 @@ class ViewController: UIViewController {
                 self.navRightButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
             }
             
-            self.isOpened.toggle()
+            self.toggleOnOpen()
             self.view.layoutIfNeeded()
         }
+    }
+    
+    private func toggleOnOpen(){
+        snackIcons.isHidden.toggle()
+        isOpened.toggle()
+        navHeader.text = isOpened ? "Add Snack" : "Snack"
     }
     
 
