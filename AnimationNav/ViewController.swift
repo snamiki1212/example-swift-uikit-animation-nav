@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     // params
-    var list = [] // contents of tableView
+    var list: [String] = [] // contents of tableView
     let tableCellId = "tableCellId"
     var isOpened = false
     
