@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         contentView.axis = .vertical
         contentView.distribution = .fill
+        contentView.spacing = 2
         
         // nav
         nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: .max, height: 44))
@@ -106,6 +107,8 @@ class ViewController: UIViewController {
         
         // table
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.topAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
+        table.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         table.dataSource = self
         table.delegate = self
         table.backgroundColor = .yellow
