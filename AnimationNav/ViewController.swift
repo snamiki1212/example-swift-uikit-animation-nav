@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var nav = UINavigationBar()
     var navRightButton = UIButton()
     var navHeader = UILabel()
-    var tableView = UITableView()
+    var table = UITableView()
     
     let regularNavbarHeight = 88
     lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         // content view
         view.addSubview(contentView)
         contentView.addArrangedSubview(nav)
-        contentView.addArrangedSubview(tableView)
+        contentView.addArrangedSubview(table)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -105,13 +105,14 @@ class ViewController: UIViewController {
         
         //
 //        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        table.translatesAutoresizingMaskIntoConstraints = false
 //        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 //        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 //        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 //        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        tableView.backgroundColor = .yellow
+        table.dataSource = self
+        table.delegate = self
+        table.backgroundColor = .yellow
             
         //
         view.backgroundColor = .systemTeal
@@ -149,6 +150,20 @@ class ViewController: UIViewController {
         print("TODO: inserting item is ", text)
     }
 
+    var list = ["a", "b", "c"]
+    let tableCellId = "tableCellId"
+}
 
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: tableCellId)
+        cell.textLabel?.text = list[indexPath.row]
+        return cell
+    }
 }
 
