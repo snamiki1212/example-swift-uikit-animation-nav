@@ -10,9 +10,11 @@ import UIKit
 class ViewController: UIViewController {
 
     var isOpened = false
+    var contentView = UIStackView()
     var nav = UINavigationBar()
     var navRightButton = UIButton()
     var navHeader = UILabel()
+    var tableView = UITableView()
     
     let regularNavbarHeight = 88
     lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
@@ -23,15 +25,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // content view
+        view.addSubview(contentView)
+        contentView.addArrangedSubview(nav)
+        contentView.addArrangedSubview(tableView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        contentView.axis = .vertical
+//        contentView.alignment = .center
+        contentView.distribution = .fill
+        
+        
         // nav
         nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: .max, height: 44))
         view.addSubview(nav)
         nav.backgroundColor = UIColor(red: 221, green: 221, blue: 221, alpha: 1)
         nav.translatesAutoresizingMaskIntoConstraints = false
-        nav.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        nav.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        nav.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        nav.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        nav.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        nav.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         heightConstraint.isActive = true
+        nav.backgroundColor = .systemPink
         
         // nav right button constraints
         navRightButton = UIButton()
@@ -63,7 +80,11 @@ class ViewController: UIViewController {
                 let imgView = UIImageView()
                 imgView.image = UIImage(named: imgName)!
                 imgView.contentMode = .scaleAspectFit
-                imgView.backgroundColor = .yellow
+                let gesture = UITapGestureRecognizer(target: self, action: #selector(onTapSnack))
+                gesture.name = imgName
+                imgView.isUserInteractionEnabled = true
+                imgView.addGestureRecognizer(gesture)
+                
                 return imgView
             })
             
@@ -71,7 +92,7 @@ class ViewController: UIViewController {
             stack.axis = .horizontal
             stack.distribution = .fillEqually
             stack.alignment = .center
-            stack.spacing = 20
+            stack.spacing = 3
             stack.isHidden = true
             return stack
         }()
@@ -81,9 +102,17 @@ class ViewController: UIViewController {
         snackIcons.leadingAnchor.constraint(equalTo: nav.leadingAnchor).isActive = true
         snackIcons.heightAnchor.constraint(equalToConstant: 50).isActive = true
         snackIcons.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        snackIcons.backgroundColor = .green
         
+        //
+//        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
+        tableView.backgroundColor = .yellow
+            
         //
         view.backgroundColor = .systemTeal
         print("RENDER")
@@ -91,7 +120,6 @@ class ViewController: UIViewController {
     
     
     @objc func onPressAddButton(){
-        print("onPressAddButton")
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut) {
             if self.isOpened {
                 self.heightConstraint.constant = CGFloat(self.regularNavbarHeight)
@@ -112,6 +140,14 @@ class ViewController: UIViewController {
         navHeader.text = isOpened ? "Add Snack" : "Snack"
     }
     
+    @objc private func onTapSnack(_ sender: UIGestureRecognizer){
+        guard let snackName = sender.name else { return }
+        insertRow(text: snackName)
+    }
+    
+    func insertRow(text: String) {
+        print("TODO: inserting item is ", text)
+    }
 
 
 }
