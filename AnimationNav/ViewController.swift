@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         // stack
         snackIcons = {
             let imgNameList = [
-//                "oreos",
+                "oreos",
                 "pizza_pockets",
                 "pop_tarts",
                 "popsicle",
@@ -69,15 +69,15 @@ class ViewController: UIViewController {
             
             let stack = UIStackView(arrangedSubviews: imgViews)
             stack.axis = .horizontal
-            stack.distribution = .equalSpacing
+            stack.distribution = .fillEqually
             stack.alignment = .center
             stack.spacing = 20
-//            stack.isHidden = true
+            stack.isHidden = true
             return stack
         }()
         nav.addSubview(snackIcons)
         snackIcons.translatesAutoresizingMaskIntoConstraints = false
-        snackIcons.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
+        snackIcons.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -50).isActive = true
         snackIcons.leadingAnchor.constraint(equalTo: nav.leadingAnchor).isActive = true
         snackIcons.heightAnchor.constraint(equalToConstant: 50).isActive = true
         snackIcons.widthAnchor.constraint(equalToConstant: 200).isActive = true
