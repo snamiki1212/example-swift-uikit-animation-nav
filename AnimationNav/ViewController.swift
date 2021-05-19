@@ -8,19 +8,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    // params
+    var list = ["a", "b", "c"]
+    let tableCellId = "tableCellId"
     var isOpened = false
+    
+    // UIs
     var contentView = UIStackView()
     var nav = UINavigationBar()
     var navRightButton = UIButton()
     var navHeader = UILabel()
     var table = UITableView()
-    
-    let regularNavbarHeight = 88
-    lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
-    
     var snackIcons = UIStackView()
     
+    // Styles
+    let regularNavbarHeight = 88
+    lazy var heightConstraint = nav.heightAnchor.constraint(equalToConstant: CGFloat(regularNavbarHeight))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +38,7 @@ class ViewController: UIViewController {
         contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         contentView.axis = .vertical
-//        contentView.alignment = .center
         contentView.distribution = .fill
-        
         
         // nav
         nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: .max, height: 44))
@@ -103,13 +104,8 @@ class ViewController: UIViewController {
         snackIcons.heightAnchor.constraint(equalToConstant: 50).isActive = true
         snackIcons.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        //
-//        view.addSubview(tableView)
+        // table
         table.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         table.dataSource = self
         table.delegate = self
         table.backgroundColor = .yellow
@@ -146,12 +142,11 @@ class ViewController: UIViewController {
         insertRow(text: snackName)
     }
     
-    func insertRow(text: String) {
-        print("TODO: inserting item is ", text)
+    private func insertRow(text: String) {
+        list.append(text)
+        table.insertRows(at: [IndexPath(row: list.count - 1, section: 0)], with: .automatic)
     }
 
-    var list = ["a", "b", "c"]
-    let tableCellId = "tableCellId"
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
