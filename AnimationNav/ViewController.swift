@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         nav.addSubview(navRightButton)
         navRightButton.setTitle("➕", for: .normal)
         navRightButton.translatesAutoresizingMaskIntoConstraints = false
-        navRightButton.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
+        navRightButton.topAnchor.constraint(equalTo: nav.topAnchor, constant: 40).isActive = true
         navRightButton.trailingAnchor.constraint(equalTo: nav.trailingAnchor).isActive = true
         navRightButton.addTarget(self, action: #selector(onPressAddButton), for: .touchUpInside)
         
