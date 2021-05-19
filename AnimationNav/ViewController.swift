@@ -63,7 +63,6 @@ class ViewController: UIViewController {
                 let imgView = UIImageView()
                 imgView.image = UIImage(named: imgName)!
                 imgView.contentMode = .scaleAspectFit
-//                imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 0)
                 imgView.backgroundColor = .yellow
                 return imgView
             })
@@ -81,7 +80,7 @@ class ViewController: UIViewController {
         snackIcons.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
         snackIcons.leadingAnchor.constraint(equalTo: nav.leadingAnchor).isActive = true
         snackIcons.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        snackIcons.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        snackIcons.widthAnchor.constraint(equalToConstant: 200).isActive = true
         snackIcons.backgroundColor = .green
         
         
