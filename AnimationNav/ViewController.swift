@@ -44,13 +44,12 @@ class ViewController: UIViewController {
         // nav
         nav = UINavigationBar(frame: CGRect(x: 0, y: 0, width: .max, height: 44))
         view.addSubview(nav)
-        nav.backgroundColor = UIColor(red: 221, green: 221, blue: 221, alpha: 1)
+        nav.backgroundColor = UIColor(red: 221 / 255, green: 221 / 255, blue: 221 / 255, alpha: 1)
         nav.translatesAutoresizingMaskIntoConstraints = false
         nav.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         nav.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         nav.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         heightConstraint.isActive = true
-        nav.backgroundColor = .systemPink
         
         // nav right button constraints
         navRightButton = UIButton()
@@ -111,11 +110,7 @@ class ViewController: UIViewController {
         table.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         table.dataSource = self
         table.delegate = self
-        table.backgroundColor = .yellow
             
-        //
-        view.backgroundColor = .systemTeal
-        print("RENDER")
     }
     
     
