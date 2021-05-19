@@ -52,21 +52,36 @@ class ViewController: UIViewController {
         
         // stack
         snackIcons = {
-            let oreos = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-            oreos.image = UIImage(named: "oreos")!
-            var label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            label.text = "test"
-            label.backgroundColor = .blue
-            var stack = UIStackView(arrangedSubviews: [oreos, label])
-            stack.isHidden = true
+            let imgNameList = [
+//                "oreos",
+                "pizza_pockets",
+                "pop_tarts",
+                "popsicle",
+                "ramen"
+            ]
+            let imgViews = imgNameList.map({ imgName -> UIImageView in
+                let imgView = UIImageView()
+                imgView.image = UIImage(named: imgName)!
+                imgView.contentMode = .scaleAspectFit
+//                imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 0)
+                imgView.backgroundColor = .yellow
+                return imgView
+            })
+            
+            let stack = UIStackView(arrangedSubviews: imgViews)
+            stack.axis = .horizontal
+            stack.distribution = .equalSpacing
+            stack.alignment = .center
+            stack.spacing = 20
+//            stack.isHidden = true
             return stack
         }()
         nav.addSubview(snackIcons)
         snackIcons.translatesAutoresizingMaskIntoConstraints = false
         snackIcons.bottomAnchor.constraint(equalTo: nav.bottomAnchor).isActive = true
         snackIcons.leadingAnchor.constraint(equalTo: nav.leadingAnchor).isActive = true
-        snackIcons.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        snackIcons.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        snackIcons.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        snackIcons.widthAnchor.constraint(equalToConstant: 300).isActive = true
         snackIcons.backgroundColor = .green
         
         
